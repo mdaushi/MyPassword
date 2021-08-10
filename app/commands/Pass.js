@@ -1,7 +1,14 @@
 const dataPath = "./app/assets/pass.json";
+const configPath = './app/config/general.json';
 const { Markup, session, Scenes: { WizardScene, Stage } } = require('telegraf');
 const fs = require("fs");
 const Fuse = require('fuse.js')
+
+function getConfig() {	
+	const jsonData = fs.readFileSync(configPath)
+	const dataParse = JSON.parse(jsonData)
+	return dataParse
+}
 
 /**
  * Reading all data
@@ -12,6 +19,7 @@ function readFile() {
 	const dataParse = JSON.parse(jsonData)
 	return dataParse
 }
+
 
 /**
  * Write data
@@ -67,7 +75,7 @@ function listData(ctx, type) {
 	return ctx.reply('Semua password yang tersimpan', {
 		parse_mode: 'HTML',
 		...Markup.inlineKeyboard(
-			chunk(dataMap, 3)
+			chunk(dataMap, getConfig().chunk)
 		)
 	})
 }
