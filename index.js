@@ -15,6 +15,7 @@ bot.use( async(ctx, next)=>{
 // command here 
 require('./app/commands/Help')(bot);
 require('./app/commands/Pass')(bot);
+require('./app/commands/Setting')(bot);
 
 // webhook
 bot.launch({
